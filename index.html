@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./patternNum.css">
+  <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container-fluid pattern-wrappper">
+  <div class="row">
+    <!--左边-->
+    <div class="col-md-10 pattern-left">
+      <div class="header">
+        <h2>录入打版资料</h2>
+      </div>
+      <div class="change-button">
+        <button type="button" class="btn btn-default">录入用量</button>
+        <button type="button" class="btn btn-default">录入尺码</button>
+      </div>
+      <div class="base-info">
+        <div class="row">
+          <div class="col-md-3">打版单号：PM-20190302-0001</div>
+          <div class="col-md-2"><img src="https://avatar.csdn.net/2/0/3/3_u014748374.jpg" alt=""></div>
+          <div class="col-md-4">
+            <div>SPU编号：SH345C0A</div>
+            <div>产品名称：2019春季新款民族风中长款大码宽松棉麻印花长...</div>
+          </div>
+          <div class="col-md-2">时效要求：7天</div>
+          <div class="col-md-1"></div>
+        </div>
+        <div class="filter">
+          <select id="mb-select">
+            <option value="0">请选择尺码模板</option>
+            <option value="0">上衣普通</option>
+            <option value="2">裤子普通</option>
+          </select>
+          <input type="number" value="0" name="" id="all-jump-code">
+          <button
+            type="button"
+            id="set-all-jump-code"
+            class="btn btn-info btn-primary">一键同步全部跳码</button>
+          <button
+            type="button"
+            style="float: right;"
+            id="add-tr-item"
+            class="btn btn-primary">添加</button>
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-bordered" id="size-table">
+          <thead id="size-table-thead">
+            <tr>
+              <th>尺码部位</th>
+              <th>测量方法</th>
+              <th>基码（S）</th>
+              <th>XS</th>
+              <th>跳码 <input type="checkbox" class="sync-code sync-jump-code-XS">同步</th>
+              <th>S</th>
+              <th>跳码 <input type="checkbox" class="sync-code sync-jump-code-S">同步</th>
+              <th>M</th>
+              <th>跳码 <input type="checkbox" class="sync-code sync-jump-code-M">同步</th>
+              <th>L</th>
+              <th>跳码 <input type="checkbox" class="sync-code sync-jump-code-L">同步</th>
+              <th>误差 <input type="checkbox" class="sync-mistake">同步</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="size-table-tbody">
+            <tr class='size-item'>
+            <td>
+              <input type="text" value="前衣长" name="" class='w80'>
+            </td>
+            <td>
+              <input type="text" value="前肩点至脚边" name="" class='w80'>
+            </td>
+            <td>
+              <input type="number" value="0" name="" class='w60 basic-code'>
+            </td>
+            <td>0</td>
+            <td>
+              <input type="number" value="0" name="" class='w60 jump-code' data-size="XS">
+            </td>
+            <td>0</td>
+            <td>
+              <input type="number" value="0" name="" class='w60 jump-code' data-size="S">
+            </td>
+            <td>0</td>
+            <td>
+              <input type="number" value="0" name="" class='w60 jump-code' data-size="M">
+            </td>
+            <td>0</td>
+            <td>
+              <input type="number" value="0" name="" class='w60 jump-code' data-size="L">
+            </td>
+            <td>
+              ±<input type="number" value="0" name="" class='w60 mistake-code'>
+            </td>
+            <td>
+              <button type="button" class="btn btn-danger delete-size-item">删除</button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="submit-table">
+        <button type="button" class="btn btn-info submit-table-btn">提交</button>
+      </div>
+    </div>
+    <!--右边-->
+    <div class="col-md-2">
+      <input type="checkbox" id="PM-20190302-0001" value="0" name="">
+      <label for="PM-20190302-0001">PM-20190302-0001</label>
+      <br>
+      <input type="checkbox" id="PM-20190302-0002" value="2" name="">
+      <label for="PM-20190302-0002">PM-20190302-0002</label>
+      <br>
+      <input type="checkbox" id="PM-20190302-0003" value="3" name="">
+      <label for="PM-20190302-0003">PM-20190302-0003</label>
+    </div>
+  </div>
+</div>
+<script src='./patternNum.js'></script>
+</body>
+</html>

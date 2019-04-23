@@ -1,0 +1,53 @@
+html, body {
+  height: 100%;
+}
+
+.pattern-wrappper {
+  font-size: 12px;
+}
+
+.pattern-left {
+  border-right: 1px solid #ccc;
+}
+
+.w60 {
+  display: inline-block;
+  width: 60px !important;
+}
+.w80 {
+  display: inline-block;
+  width: 80px !important;
+}
+.header {
+  height: 65px;
+  background: #f2f2f2;
+}
+
+.header h2 {
+  line-height: 65px;
+  margin-left: 22px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.change-button {
+  margin: 8px 0;
+}
+
+.filter {
+  margin: 8px 0;
+}
+
+.filter > * {
+  margin-right: 12px;
+}
+
+.filter input,
+.filter button,
+.filter select {
+  height: 34px;
+}
+
+.submit-table-btn {
+  float: right;
+}
