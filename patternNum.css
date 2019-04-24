@@ -50,6 +50,6 @@ html, body {
   height: 34px;
 }
 
-.submit-table-btn {
+#submit-table-btn {
   float: right;
 }

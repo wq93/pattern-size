@@ -61,10 +61,10 @@ function setThead(data) {
   // 空行
   initTr += `<tr class='size-item'>
               <td>
-                <input type="text" value="" name="" class='w80'>
+                <input type="text" value="" name="" class='w80 part'>
               </td>
               <td>
-                <input type="text" value="" name="" class='w80'>
+                <input type="text" value="" name="" class='w80 metering-type'>
               </td>
               <td>
                 <input type="number" value="" name="" class='w60 basic-code'>
@@ -99,10 +99,10 @@ function setTbody(data) {
     var trItemCList = trItem.cList;
     tbodyHtml += `<tr class='size-item'>
               <td>
-                <input type="text" value=${trItem.part} name="" class='w80'>
+                <input type="text" value=${trItem.part} name="" class='w80 part'>
               </td>
               <td>
-                <input type="text" value=${trItem.metering_type} name="" class='w80'>
+                <input type="text" value=${trItem.metering_type} name="" class='w80 metering-type'>
               </td>
               <td>
                 <input type="number" value=${trItem.size_base} name="" class='w60 basic-code'>
@@ -125,9 +125,6 @@ function setTbody(data) {
   $('#size-table-tbody').append(tbodyHtml)
 };
 
-// 设置基码
-$('.basic-code').val(basicSize)
-
 // 根据跳码计算尺码
 function computeSize($target) {
   // 获取父节点的上一个兄弟节点
@@ -136,6 +133,44 @@ function computeSize($target) {
   var basicCode = $target.parents('tr.size-item');
   prevParent.html(parseInt(basicCode.find('.basic-code').val()) + parseInt($target.val()))
 }
+
+// 获取保持数据
+function formatSubmitData() {
+  // 获取每一行
+  var $trs = $('.size-item');
+  var submitData = [];
+  // 循环列
+  for (var i = 0; i < $trs.length; i++) {
+    var trItemData = {}
+    var $tr = $($trs[i])
+    var cListData = []
+    var $cList = $tr.find('.jump-code')
+    // 循环跳码块
+    for (var j = 0; j < $cList.length; j++) {
+      var cListItemData = {}
+      var $cListItem = $($cList[j]);
+      cListItemData = {
+        'px': j,
+        'tm': $cListItem.val(),
+        'cm': $cListItem.attr('data-size'),
+        'value' : $cListItem.parents('td').prev('td').html() || 0 // 尺码计算值
+      }
+      cListData.push(cListItemData)
+    }
+    trItemData = {
+      'metering_type': $tr.find('.metering-type').val() || '',
+      'part': $tr.find('.part').val() || '',
+      'size_base': $tr.find('.basic-code').val() || '',
+      'error': $tr.find('.mistake-code').val() || '',
+      'cList': cListData
+    }
+    submitData.push(trItemData)
+  }
+  return submitData;
+}
+
+// 设置基码
+$('.basic-code').val(basicSize)
 
 // 设置全部跳码
 $('#set-all-jump-code').click(function (e) {
@@ -204,4 +239,9 @@ $("#size-table").on("change", ".mistake-code", function (e) {
   if (isSync) {
     $('.mistake-code').val(target.val());
   }
+})
+
+// 提交
+$("#submit-table-btn").click(function (e) {
+  console.log(formatSubmitData());
 })
