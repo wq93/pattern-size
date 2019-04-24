@@ -1,38 +1,6 @@
 // 假设基码
 var basicSize = 66;
-var trHtml = `<tr class='size-item'>
-            <td>
-              <input type="text" value="前衣长" name="" class='w80'>
-            </td>
-            <td>
-              <input type="text" value="前肩点至脚边" name="" class='w80'>
-            </td>
-            <td>
-              <input type="number" value="0" name="" class='w60 basic-code'>
-            </td>
-            <td>0</td>
-            <td>
-              <input type="number" value="0" name="" class='w60 jump-code' data-size="XS">
-            </td>
-            <td>0</td>
-            <td>
-              <input type="number" value="0" name="" class='w60 jump-code' data-size="S">
-            </td>
-            <td>0</td>
-            <td>
-              <input type="number" value="0" name="" class='w60 jump-code' data-size="M">
-            </td>
-            <td>0</td>
-            <td>
-              <input type="number" value="0" name="" class='w60 jump-code' data-size="L">
-            </td>
-            <td>
-              ±<input type="number" value="0" name="" class='w60 mistake-code'>
-            </td>
-            <td>
-              <button type="button" class="btn btn-danger delete-size-item">删除</button>
-            </td>
-          </tr>`
+var initTr = ''
 var data = {
   "code": "OK",
   "desc": "OK",
@@ -78,19 +46,84 @@ var data = {
   "success": true,
   "failed": false
 }
-// 设置表头
+setThead(data);
+setTbody(data);
+
+// 设置表头 && 根据头部生成一个空行以便添加
 function setThead(data) {
-  var theadStart= `<th>尺码部位</th>
+  var itemFir = data.item[0];
+  var theadStart = `<tr><th>尺码部位</th>
                   <th>测量方法</th>
-                  <th>基码（${data.size_base}）</th>
+                  <th>基码（${itemFir.size_base}）</th>
                   `
   var theadEnd = `<th>误差 <input type="checkbox" class="sync-mistake">同步</th>
-              <th>操作</th>`
-  var JumpArr =
-  for (var i = 0; i < $JumpCode.length; i++) {
-
+              <th>操作</th></tr>`
+  // 空行
+  initTr += `<tr class='size-item'>
+              <td>
+                <input type="text" value="" name="" class='w80'>
+              </td>
+              <td>
+                <input type="text" value="" name="" class='w80'>
+              </td>
+              <td>
+                <input type="number" value="" name="" class='w60 basic-code'>
+              </td>`
+  var theadMiddle = ''
+  var jumpArr = itemFir.cList
+  for (var i = 0; i < jumpArr.length; i++) {
+    var jumpItem = jumpArr[i]
+    theadMiddle += `<th>${jumpItem.cm}</th>
+              <th>跳码 <input type="checkbox" class="sync-code sync-jump-code-${jumpItem.cm}">同步</th>`
+    initTr += ` <td></td>
+              <td>
+                <input type="number" value="" name="" class='w60 jump-code' data-size="${jumpItem.cm}">
+              </td>`
   }
+  initTr += `<td>
+                ±<input type="number" value="" name="" class='w60 mistake-code'>
+              </td>
+              <td>
+                <button type="button" class="btn btn-danger delete-size-item">删除</button>
+              </td>
+          </tr>`
+  $('#size-table-thead').html(theadStart + theadMiddle + theadEnd)
 }
+
+// 设置表单体
+function setTbody(data) {
+  var trArr = data.item;
+  var tbodyHtml = '';
+  for (var i = 0; i < trArr.length; i++) {
+    var trItem = trArr[i];
+    var trItemCList = trItem.cList;
+    tbodyHtml += `<tr class='size-item'>
+              <td>
+                <input type="text" value=${trItem.part} name="" class='w80'>
+              </td>
+              <td>
+                <input type="text" value=${trItem.metering_type} name="" class='w80'>
+              </td>
+              <td>
+                <input type="number" value=${trItem.size_base} name="" class='w60 basic-code'>
+              </td>`
+    // 循环跳码模块
+    for (var j = 0; j < trItemCList.length; j++) {
+      var cListItem = trItemCList[j];
+      tbodyHtml += ` <td>${basicSize + cListItem.tm}</td>
+              <td>
+                <input type="number" value="${cListItem.tm}" name="" class='w60 jump-code' data-size=${cListItem.cm}>
+              </td>`
+    }
+    tbodyHtml += `<td>
+                ±<input type="number" value="${trItem.error}" name="" class='w60 mistake-code'>
+              </td>
+              <td>
+                <button type="button" class="btn btn-danger delete-size-item">删除</button>
+              </td>`
+  }
+  $('#size-table-tbody').append(tbodyHtml)
+};
 
 // 设置基码
 $('.basic-code').val(basicSize)
@@ -154,7 +187,7 @@ $("#size-table").on("change", ".basic-code", function (e) {
 
 // 添加一行
 $('#add-tr-item').click(function () {
-  $('#size-table').append(trHtml)
+  $('#size-table-tbody').append(initTr)
 })
 
 // 删除
