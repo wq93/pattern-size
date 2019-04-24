@@ -1,13 +1,12 @@
 // 假设基码
 var basicSize = 0;
 var basicSizeCode = '';
-var sizeArr = ['XS', 'S', 'M', 'L','XL']
+var sizeArr = ['XS', 'S', 'M', 'L', 'XL']
 var initTr = '';
 var tableData = {}
 
 
-
-$('input.pattern-number-checkbox:first').attr("checked",'checked');
+$('input.pattern-number-checkbox:first').attr("checked", 'checked');
 
 // 设置表头 && 根据头部生成一个空行以便添加
 function setThead(data) {
@@ -36,10 +35,10 @@ function setThead(data) {
   for (var i = 0; i < jumpArr.length; i++) {
     var jumpItem = jumpArr[i]
     // 最后一个不需要跳码列
-    if(i === jumpArr.length -1 ){
+    if (i === jumpArr.length - 1) {
       theadMiddle += `<th>${jumpItem.cm}</th>`
-      initTr += ` <td class="${jumpItem.cm === basicSizeCode ? 'basic-size-td' : ''}"></td>`
-    }else{
+      initTr += ` <td class="${jumpItem.cm === basicSizeCode ? 'basic-size-td' : ''}" data-last-cm=${jumpItem.cm}"></td>`
+    } else {
       theadMiddle += `<th class=${jumpItem.cm}>${jumpItem.cm}</th>
               <th>跳码 <input type="checkbox" class="sync-code sync-jump-code-${jumpItem.cm}">同步</th>`
       initTr += ` <td class="${jumpItem.cm === basicSizeCode ? 'basic-size-td' : ''}"></td>
@@ -79,9 +78,9 @@ function setTbody(data) {
     for (var j = 0; j < trItemCList.length; j++) {
       var cListItem = trItemCList[j];
       // 最后一个不需要跳码列
-      if(j === trItemCList.length -1 ){
-        tbodyHtml += ` <td class="${cListItem.cm === basicSizeCode ? 'basic-size-td' : ''}">${basicSize + cListItem.tm}</td>`
-      }else {
+      if (j === trItemCList.length - 1) {
+        tbodyHtml += ` <td class="${cListItem.cm === basicSizeCode ? 'basic-size-td' : ''}" data-last-cm=${cListItem.cm}">${basicSize + cListItem.tm}</td>`
+      } else {
         tbodyHtml += ` <td class="${cListItem.cm === basicSizeCode ? 'basic-size-td' : ''}">${basicSize + cListItem.tm}</td>
               <td>
                 <input type="number" value="${cListItem.tm}" name="" class='w60 jump-code' data-size=${cListItem.cm}>
@@ -101,12 +100,12 @@ function setTbody(data) {
 // 根据跳码计算尺码
 function computeSize($target) {
   var currentSize = $($target).attr('data-size');
-  if(compareElement({basicSize: basicSizeCode, currentSize: currentSize})) {
+  if (compareElement({basicSize: basicSizeCode, currentSize: currentSize})) {
     // 获取父节点的上一个兄弟节点
     var targetParent = $target.parent('td').next('td');
     var standard = $target.parent('td').prev('td');
     targetParent.html(parseInt(standard.html()) + parseInt($target.val()))
-  }else{
+  } else {
     // 获取父节点的上一个兄弟节点
     var targetParent = $target.parent('td').prev('td');
     var standard = $target.parent('td').next('td');
@@ -125,6 +124,8 @@ function formatSubmitData() {
     var $tr = $($trs[i])
     var cListData = []
     var $cList = $tr.find('.jump-code')
+    // 获取最后一个尺码列
+    var lastTr = $tr.find('td[data-last-cm]')
     // 循环跳码块
     for (var j = 0; j < $cList.length; j++) {
       var cListItemData = {}
@@ -133,9 +134,20 @@ function formatSubmitData() {
         'px': j,
         'tm': $cListItem.val(),
         'cm': $cListItem.attr('data-size'),
-        'value' : $cListItem.parents('td').prev('td').html() || 0 // 尺码计算值
+        'value': $cListItem.parents('td').prev('td').html() || 0 // 尺码计算值
       }
       cListData.push(cListItemData)
+      // 拼上最后一项
+      if (j === $cList.length - 1) {
+        var cListItemData = {}
+        cListItemData = {
+          'px': j + 1,
+          'tm': $(lastTr).html(),
+          'cm': $(lastTr).attr('data-last-cm'),
+          'value': 0 // 尺码计算值
+        }
+        cListData.push(cListItemData)
+      }
     }
     trItemData = {
       'metering_type': $tr.find('.metering-type').val() || '',
@@ -144,10 +156,11 @@ function formatSubmitData() {
       'error': $tr.find('.mistake-code').val() || '',
       'cList': cListData,
       'id': $('#pattern-id').attr('data-id'),
-      'mId' : $('#mb-select').val()
+      'mId': $('#mb-select').val()
     }
     submitData.push(trItemData)
   }
+  console.log(submitData);
   return submitData;
 }
 
@@ -185,7 +198,7 @@ $("#size-table").on("change", ".jump-code", function (e) {
       var $jumpCode = $($JumpCode[i]);
       computeSize($jumpCode)
     }
-  }else {
+  } else {
     // 改变这一行的码
     // 获取这行所有的跳码框并设置尺码
     var $JumpCode = target.parents('tr.size-item').find('.jump-code');
@@ -234,16 +247,15 @@ $("#size-table").on("change", ".mistake-code", function (e) {
 
 // 提交
 $("#submit-table-btn").click(function (e) {
-  console.log(formatSubmitData());
   $.ajax({
-    type:"POST",
-    url:'/api/platemakingSizePart/addPlatemakingSizePart',
-    dataType:"json",
+    type: "POST",
+    url: '/api/platemakingSizePart/addPlatemakingSizePart',
+    dataType: "json",
     data: formatSubmitData(),
-    success:function(data){
+    success: function (data) {
       console.log(data);
     },
-    error:function(jqXHR){
+    error: function (jqXHR) {
       console.log(jqXHR.status);
     }
   });
@@ -259,19 +271,19 @@ $("#mb-select").change(function (e) {
 // 获取表格数据
 function fetchTableData(id) {
   $.ajax({
-    type:"GET",
-    url:`/api/templateMaterial//getId/${id}`,
-    dataType:"json",
-    success:function(data){
+    type: "GET",
+    url: `/api/templateMaterial//getId/${id}`,
+    dataType: "json",
+    success: function (data) {
       console.log(data);
       setThead(data);
       setTbody(data);
       // 设置基码
       $('.basic-code').val(basicSize)
     },
-    error:function(jqXHR){
+    error: function (jqXHR) {
       console.log(jqXHR.status);
-      var data  = {
+      var data = {
         "code": "OK",
         "desc": "OK",
         "item": [           //数据item
