@@ -12,20 +12,20 @@
   <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div class="container-fluid pattern-wrappper">
-  <div class="row">
+<div class="pattern-wrappper">
+  <div class="pattern-wrappper-row">
     <!--左边-->
-    <div class="col-md-10 pattern-left">
+    <div class="pattern-left">
       <div class="header">
         <h2>录入打版资料</h2>
       </div>
       <div class="change-button">
         <ul class="nav nav-pills">
           <li><a href="javascript:;"><span style="font-size: 14px">录入用量</span></a></li>
-          <li><a href="javascript:;"><span style="font-size: 14px">录入尺码</span></a></li>
+          <li class="active"><a href="javascript:;"><span style="font-size: 14px">录入尺码</span></a></li>
         </ul>
       </div>
-      <div class="base-info">
+      <div class="base-info p18">
         <div class="row">
           <div class="col-md-3">打版单号：PM-20190302-0001</div>
           <div class="col-md-2"><img src="https://avatar.csdn.net/2/0/3/3_u014748374.jpg" alt=""></div>
@@ -39,7 +39,7 @@
         <div class="filter">
           <select id="mb-select">
             <option value="0">请选择尺码模板</option>
-            <option value="0">上衣普通</option>
+            <option value="1">上衣普通</option>
             <option value="2">裤子普通</option>
           </select>
           <input type="number" value="0" name="" id="all-jump-code">
@@ -56,7 +56,7 @@
           </button>
         </div>
       </div>
-      <div class="table-responsive">
+      <div class="table-responsive p18">
         <table class="table table-bordered" id="size-table">
           <thead id="size-table-thead">
           <!--<tr>-->
@@ -112,12 +112,13 @@
           </tbody>
         </table>
       </div>
-      <div class="submit-table">
+      <div class="submit-table p18">
         <button type="button" id="submit-table-btn" class="btn btn-info">提交</button>
+        <button type="button" id="cancel-table-btn" class="btn btn-info">暂不录入</button>
       </div>
     </div>
     <!--右边-->
-    <div class="col-md-2">
+    <div class="pattern-right">
       <ul class="nav nav-pills nav-stacked">
         <!--<li class="active"><a href="#">Home</a></li>-->
         <li><a href="javascript:;">

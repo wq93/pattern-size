@@ -245,3 +245,9 @@ $("#size-table").on("change", ".mistake-code", function (e) {
 $("#submit-table-btn").click(function (e) {
   console.log(formatSubmitData());
 })
+
+// 选择尺码模板
+$("#mb-select").change(function (e) {
+  var target = $(e.currentTarget);
+  console.log(target.val());
+})

@@ -4,10 +4,24 @@ html, body {
 
 .pattern-wrappper {
   font-size: 12px;
+  height: 100%;
+}
+
+.pattern-wrappper-row {
+  display: flex;
+  height: 100%;
 }
 
 .pattern-left {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
   border-right: 1px solid #ccc;
+}
+
+.pattern-right {
+  width: 250px;
 }
 
 .w60 {
@@ -19,7 +33,9 @@ html, body {
   display: inline-block;
   width: 80px !important;
 }
-
+.p18 {
+  padding: 0 18px;
+}
 .header {
   height: 65px;
   background: #f2f2f2;
@@ -27,17 +43,18 @@ html, body {
 
 .header h2 {
   line-height: 65px;
-  margin-left: 22px;
+  margin: 0;
+  margin-left: 20px;
   font-size: 16px;
   font-weight: 500;
 }
 
 .change-button {
-  margin: 8px 0;
+  margin: 18px 0;
 }
 
 .filter {
-  margin: 8px 0;
+  margin: 18px 0;
 }
 
 .filter > * {
@@ -49,7 +66,23 @@ html, body {
 .filter select {
   height: 34px;
 }
+.table {
+  margin-bottom: 0;
+}
 
+.table-responsive {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.submit-table {
+  display: flex;
+  flex-direction: row-reverse;
+  clear: both;
+  margin: 22px 0 32px 0;
+}
+#cancel-table-btn,
 #submit-table-btn {
-  float: right;
+  padding: 6px 32px;
+  margin-left: 22px;
 }
