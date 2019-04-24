@@ -20,8 +20,10 @@
         <h2>录入打版资料</h2>
       </div>
       <div class="change-button">
-        <button type="button" class="btn btn-default">录入用量</button>
-        <button type="button" class="btn btn-default">录入尺码</button>
+        <ul class="nav nav-pills">
+          <li><a href="javascript:;"><span style="font-size: 14px">录入用量</span></a></li>
+          <li><a href="javascript:;"><span style="font-size: 14px">录入尺码</span></a></li>
+        </ul>
       </div>
       <div class="base-info">
         <div class="row">
@@ -44,35 +46,69 @@
           <button
             type="button"
             id="set-all-jump-code"
-            class="btn btn-info btn-primary">一键同步全部跳码</button>
+            class="btn btn-info btn-primary">一键同步全部跳码
+          </button>
           <button
             type="button"
             style="float: right;"
             id="add-tr-item"
-            class="btn btn-primary">添加</button>
+            class="btn btn-primary">添加
+          </button>
         </div>
       </div>
       <div class="table-responsive">
         <table class="table table-bordered" id="size-table">
           <thead id="size-table-thead">
-            <!--<tr>-->
-              <!--<th>尺码部位</th>-->
-              <!--<th>测量方法</th>-->
-              <!--<th>基码（S）</th>-->
-              <!--<th>XS</th>-->
-              <!--<th>跳码 <input type="checkbox" class="sync-code sync-jump-code-XS">同步</th>-->
-              <!--<th>S</th>-->
-              <!--<th>跳码 <input type="checkbox" class="sync-code sync-jump-code-S">同步</th>-->
-              <!--<th>M</th>-->
-              <!--<th>跳码 <input type="checkbox" class="sync-code sync-jump-code-M">同步</th>-->
-              <!--<th>L</th>-->
-              <!--<th>跳码 <input type="checkbox" class="sync-code sync-jump-code-L">同步</th>-->
-              <!--<th>误差 <input type="checkbox" class="sync-mistake">同步</th>-->
-              <!--<th>操作</th>-->
-            <!--</tr>-->
+          <!--<tr>-->
+          <!--<th>尺码部位</th>-->
+          <!--<th>测量方法</th>-->
+          <!--<th>基码（S）</th>-->
+          <!--<th>XS</th>-->
+          <!--<th>跳码 <input type="checkbox" class="sync-code sync-jump-code-XS">同步</th>-->
+          <!--<th>S</th>-->
+          <!--<th>跳码 <input type="checkbox" class="sync-code sync-jump-code-S">同步</th>-->
+          <!--<th>M</th>-->
+          <!--<th>跳码 <input type="checkbox" class="sync-code sync-jump-code-M">同步</th>-->
+          <!--<th>L</th>-->
+          <!--<th>跳码 <input type="checkbox" class="sync-code sync-jump-code-L">同步</th>-->
+          <!--<th>误差 <input type="checkbox" class="sync-mistake">同步</th>-->
+          <!--<th>操作</th>-->
+          <!--</tr>-->
           </thead>
           <tbody id="size-table-tbody">
-
+          <!--<tr class='size-item'>-->
+          <!--<td>-->
+          <!--<input type="text" value="前衣长" name="" class='w80'>-->
+          <!--</td>-->
+          <!--<td>-->
+          <!--<input type="text" value="前肩点至脚边" name="" class='w80'>-->
+          <!--</td>-->
+          <!--<td>-->
+          <!--<input type="number" value="0" name="" class='w60 basic-code'>-->
+          <!--</td>-->
+          <!--<td>0</td>-->
+          <!--<td>-->
+          <!--<input type="number" value="0" name="" class='w60 jump-code' data-size="XS">-->
+          <!--</td>-->
+          <!--<td>0</td>-->
+          <!--<td>-->
+          <!--<input type="number" value="0" name="" class='w60 jump-code' data-size="S">-->
+          <!--</td>-->
+          <!--<td>0</td>-->
+          <!--<td>-->
+          <!--<input type="number" value="0" name="" class='w60 jump-code' data-size="M">-->
+          <!--</td>-->
+          <!--<td>0</td>-->
+          <!--<td>-->
+          <!--<input type="number" value="0" name="" class='w60 jump-code' data-size="L">-->
+          <!--</td>-->
+          <!--<td>-->
+          <!--±<input type="number" value="0" name="" class='w60 mistake-code'>-->
+          <!--</td>-->
+          <!--<td>-->
+          <!--<button type="button" class="btn btn-danger delete-size-item">删除</button>-->
+          <!--</td>-->
+          <!--</tr>-->
           </tbody>
         </table>
       </div>
@@ -82,14 +118,22 @@
     </div>
     <!--右边-->
     <div class="col-md-2">
-      <input type="checkbox" id="PM-20190302-0001" value="0" name="">
-      <label for="PM-20190302-0001">PM-20190302-0001</label>
-      <br>
-      <input type="checkbox" id="PM-20190302-0002" value="2" name="">
-      <label for="PM-20190302-0002">PM-20190302-0002</label>
-      <br>
-      <input type="checkbox" id="PM-20190302-0003" value="3" name="">
-      <label for="PM-20190302-0003">PM-20190302-0003</label>
+      <ul class="nav nav-pills nav-stacked">
+        <!--<li class="active"><a href="#">Home</a></li>-->
+        <li><a href="javascript:;">
+          <input type="checkbox" id="PM-20190302-0001" value="0" name="">
+          <label for="PM-20190302-0001">PM-20190302-0001</label>
+        </a></li>
+        <li><a href="javascript:;">
+          <input type="checkbox" id="PM-20190302-0002" value="2" name="">
+          <label for="PM-20190302-0002">PM-20190302-0002</label>
+        </a></li>
+        <li><a href="javascript:;">
+          <input type="checkbox" id="PM-20190302-0003" value="3" name="">
+          <label for="PM-20190302-0003">PM-20190302-0003</label>
+        </a></li>
+      </ul>
+
     </div>
   </div>
 </div>

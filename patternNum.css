@@ -14,10 +14,12 @@ html, body {
   display: inline-block;
   width: 60px !important;
 }
+
 .w80 {
   display: inline-block;
   width: 80px !important;
 }
+
 .header {
   height: 65px;
   background: #f2f2f2;
