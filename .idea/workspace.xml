@@ -28,8 +28,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/patternNum.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="633">
-              <caret line="81" column="122" selection-start-line="81" selection-start-column="122" selection-end-line="81" selection-end-column="122" />
+            <state relative-caret-position="777">
+              <caret line="274" column="21" lean-forward="true" selection-start-line="274" selection-start-column="21" selection-end-line="274" selection-end-column="21" />
               <folding>
                 <element signature="e#5483#5564#0" />
                 <element signature="e#5635#5795#0" />
@@ -41,8 +41,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2112">
-              <caret line="26" column="55" lean-forward="true" selection-start-line="26" selection-start-column="48" selection-end-line="26" selection-end-column="55" />
+            <state relative-caret-position="-2762">
+              <caret line="1" column="16" lean-forward="true" selection-start-line="1" selection-start-column="16" selection-end-line="1" selection-end-column="16" />
               <folding>
                 <element signature="n#div#3;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" />
               </folding>
@@ -63,11 +63,11 @@
       <find>size_base</find>
       <find>table-responsive</find>
       <find>submit-table-btn</find>
-      <find>basicSize</find>
       <find>row</find>
-      <find>console</find>
       <find>cListItem</find>
       <find>formatSubmitData</find>
+      <find>console</find>
+      <find>basicSize</find>
     </findStrings>
     <replaceStrings>
       <replace>itemFir</replace>
@@ -89,7 +89,7 @@
   <component name="ProjectFrameBounds" fullScreen="true">
     <option name="y" value="23" />
     <option name="width" value="1680" />
-    <option name="height" value="809" />
+    <option name="height" value="959" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -142,12 +142,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1556022702174</updated>
-      <workItem from="1556022703770" duration="24079000" />
+      <workItem from="1556022703770" duration="25883000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="24079000" />
+    <option name="totallyTimeSpent" value="25883000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
@@ -185,8 +185,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2112">
-          <caret line="26" column="55" lean-forward="true" selection-start-line="26" selection-start-column="48" selection-end-line="26" selection-end-column="55" />
+        <state relative-caret-position="-2762">
+          <caret line="1" column="16" lean-forward="true" selection-start-line="1" selection-start-column="16" selection-end-line="1" selection-end-column="16" />
           <folding>
             <element signature="n#div#3;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" />
           </folding>
@@ -195,8 +195,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/patternNum.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="633">
-          <caret line="81" column="122" selection-start-line="81" selection-start-column="122" selection-end-line="81" selection-end-column="122" />
+        <state relative-caret-position="777">
+          <caret line="274" column="21" lean-forward="true" selection-start-line="274" selection-start-column="21" selection-end-line="274" selection-end-column="21" />
           <folding>
             <element signature="e#5483#5564#0" />
             <element signature="e#5635#5795#0" />

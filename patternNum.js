@@ -160,7 +160,6 @@ function formatSubmitData() {
     }
     submitData.push(trItemData)
   }
-  console.log(submitData);
   return submitData;
 }
 
@@ -250,8 +249,8 @@ $("#submit-table-btn").click(function (e) {
   $.ajax({
     type: "POST",
     url: '/api/platemakingSizePart/addPlatemakingSizePart',
-    dataType: "json",
-    data: formatSubmitData(),
+    data: JSON.stringify(formatSubmitData()),
+    contentType:'application/x-www-form-urlencoded',
     success: function (data) {
       console.log(data);
     },
@@ -275,7 +274,6 @@ function fetchTableData(id) {
     url: `/api/templateMaterial//getId/${id}`,
     dataType: "json",
     success: function (data) {
-      console.log(data);
       setThead(data);
       setTbody(data);
       // 设置基码
@@ -283,73 +281,6 @@ function fetchTableData(id) {
     },
     error: function (jqXHR) {
       console.log(jqXHR.status);
-      var data = {
-        "code": "OK",
-        "desc": "OK",
-        "item": [           //数据item
-          {
-            "metering_type": "b1",  // 测量方法
-            "cList": [
-              {
-                "px": 0,           // 排序
-                "tm": 31,         // 跳码
-                "cm": "S"          // 尺码
-              },
-              {
-                "px": 1,
-                "tm": 41,
-                "cm": "M"
-              },
-              {
-                "px": 1,
-                "tm": 42,
-                "cm": "L"
-              },
-              {
-                "px": 1,
-                "tm": 44,
-                "cm": "XL"
-              }
-            ],
-            "part": "c1",      //尺码部位
-            "size_base": "M",  //基码
-            "error": 771      //误差
-          },
-          {
-            "metering_type": "b2",
-            "cList": [
-              {
-                "px": 0,
-                "tm": 32,
-                "cm": "S"
-              },
-              {
-                "px": 1,
-                "tm": 42,
-                "cm": "M"
-              },
-              {
-                "px": 1,
-                "tm": 43,
-                "cm": "L"
-              },
-              {
-                "px": 1,
-                "tm": 46,
-                "cm": "XL"
-              }
-            ],
-            "part": "c2",
-            "size_base": "",
-            "error": 772
-          }
-        ],
-        "errParam": null,
-        "success": true,
-        "failed": false
-      }
-      setThead(data);
-      setTbody(data);
     }
   });
 }
