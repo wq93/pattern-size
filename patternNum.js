@@ -28,7 +28,7 @@ function setThead(data) {
                 <input type="text" value="" name="" class='w80 metering-type'>
               </td>
               <td>
-                <input type="number" value="" name="" class='w60 basic-code'>
+                <input type="number" step="0.01" data-size-base=${itemFir.size_base} value="0" name="" class='w60 basic-code'>
               </td>`
   var theadMiddle = ''
   var jumpArr = itemFir.cList
@@ -43,12 +43,12 @@ function setThead(data) {
               <th>跳码 <input type="checkbox" class="sync-code sync-jump-code-${jumpItem.cm}">同步</th>`
       initTr += ` <td class="${jumpItem.cm === basicSizeCode ? 'basic-size-td' : ''}"></td>
               <td>
-                <input type="number" value="" name="" class='w60 jump-code' data-size="${jumpItem.cm}">
+                <input type="number" step="0.01" value="" name="" class='w60 jump-code' data-size="${jumpItem.cm}">
               </td>`
     }
   }
   initTr += `<td>
-                ±<input type="number" value="" name="" class='w60 mistake-code'>
+                ±<input type="number"  step="0.01" value="" name="" class='w60 mistake-code'>
               </td>
               <td>
                 <button type="button" class="btn btn-danger delete-size-item">删除</button>
@@ -72,23 +72,23 @@ function setTbody(data) {
                 <input type="text" value=${trItem.metering_type} name="" class='w80 metering-type'>
               </td>
               <td>
-                <input type="number" value=${trItem.size_base} name="" class='w60 basic-code'>
+                <input type="number" step="0.01" data-size-base=${trItem.size_base} value=${trItem.size_base_value} name="" class='w60 basic-code'>
               </td>`
     // 循环跳码模块
     for (var j = 0; j < trItemCList.length; j++) {
       var cListItem = trItemCList[j];
       // 最后一个不需要跳码列
       if (j === trItemCList.length - 1) {
-        tbodyHtml += ` <td class="${cListItem.cm === basicSizeCode ? 'basic-size-td' : ''}" data-last-cm=${cListItem.cm}">${basicSize + cListItem.tm}</td>`
+        tbodyHtml += ` <td class="${cListItem.cm === basicSizeCode ? 'basic-size-td' : ''}" data-last-cm=${cListItem.cm}">${ cListItem.value || ''}</td>`
       } else {
-        tbodyHtml += ` <td class="${cListItem.cm === basicSizeCode ? 'basic-size-td' : ''}">${basicSize + cListItem.tm}</td>
+        tbodyHtml += ` <td class="${cListItem.cm === basicSizeCode ? 'basic-size-td' : ''}">${cListItem.value || ''}</td>
               <td>
-                <input type="number" value="${cListItem.tm}" name="" class='w60 jump-code' data-size=${cListItem.cm}>
+                <input type="number" step="0.01" value="${cListItem.tm}" name="" class='w60 jump-code' data-size=${cListItem.cm}>
               </td>`
       }
     }
     tbodyHtml += `<td>
-                ±<input type="number" value="${trItem.error}" name="" class='w60 mistake-code'>
+                ±<input type="number" step="0.01"value="${trItem.error}" name="" class='w60 mistake-code'>
               </td>
               <td>
                 <button type="button" class="btn btn-danger delete-size-item">删除</button>
@@ -104,12 +104,12 @@ function computeSize($target) {
     // 获取父节点的上一个兄弟节点
     var targetParent = $target.parent('td').next('td');
     var standard = $target.parent('td').prev('td');
-    targetParent.html(parseInt(standard.html()) + parseInt($target.val()))
+    targetParent.html((parseFloat(standard.html()) + parseFloat($target.val())).toFixed(2))
   } else {
     // 获取父节点的上一个兄弟节点
     var targetParent = $target.parent('td').prev('td');
     var standard = $target.parent('td').next('td');
-    targetParent.html(parseInt(standard.html()) - parseInt($target.val()))
+    targetParent.html((parseFloat(standard.html()) - parseFloat($target.val())).toFixed(2))
   }
 }
 
@@ -142,9 +142,9 @@ function formatSubmitData() {
         var cListItemData = {}
         cListItemData = {
           'px': j + 1,
-          'tm': $(lastTr).html(),
+          'tm': 0,
           'cm': $(lastTr).attr('data-last-cm'),
-          'value': 0 // 尺码计算值
+          'value': $(lastTr).html() // 尺码计算值
         }
         cListData.push(cListItemData)
       }
@@ -152,7 +152,8 @@ function formatSubmitData() {
     trItemData = {
       'metering_type': $tr.find('.metering-type').val() || '',
       'part': $tr.find('.part').val() || '',
-      'size_base': $tr.find('.basic-code').val() || '',
+      'size_base' : $tr.find('.basic-code').attr('data-size-base'),
+      'size_base_value': $tr.find('.basic-code').val() || '',
       'error': $tr.find('.mistake-code').val() || '',
       'cList': cListData,
       'id': $('#pattern-id').attr('data-id'),
@@ -168,7 +169,7 @@ $('#set-all-jump-code').click(function (e) {
   var allJumpCode = $('#all-jump-code').val();
   // 设置所有的跳码框
   var $JumpCode = $('#size-table .jump-code');
-  $JumpCode.val(parseInt(allJumpCode));
+  $JumpCode.val(parseFloat(allJumpCode));
   // 获取所有的跳码框并设置尺码
   for (var i = 0; i < $JumpCode.length; i++) {
     // 获取父节点的上一个兄弟节点
@@ -246,6 +247,7 @@ $("#size-table").on("change", ".mistake-code", function (e) {
 
 // 提交
 $("#submit-table-btn").click(function (e) {
+  console.log(formatSubmitData());
   $.ajax({
     type: "POST",
     url: '/api/platemakingSizePart/addPlatemakingSizePart',
@@ -276,11 +278,76 @@ function fetchTableData(id) {
     success: function (data) {
       setThead(data);
       setTbody(data);
-      // 设置基码
-      $('.basic-code').val(basicSize)
     },
     error: function (jqXHR) {
       console.log(jqXHR.status);
+      var data = {
+        "code": "OK",
+        "desc": "OK",
+        "item": [
+          {
+            "metering_type": "c2",
+            "cList": [
+              {
+                "px": 0,
+                "tm": 1,
+                "cm": "XS",
+                "value": 10
+              },
+              {
+                "px": 1,
+                "tm": 2,
+                "cm": "S",
+                "value": 11
+              },
+              {
+                "px": 2,
+                "tm": 0,
+                "cm": "M",
+                "value": 13
+              }
+            ],
+            "part": "c1",
+            "mId": 10074,
+            "size_base": "XS",
+            "error": 3,
+            "size_base_value": 10
+          },
+          {
+            "metering_type": "a2",
+            "cList": [
+              {
+                "px": 0,
+                "tm": 2,
+                "cm": "XS",
+                "value": 11
+              },
+              {
+                "px": 1,
+                "tm": 3,
+                "cm": "S",
+                "value": 13
+              },
+              {
+                "px": 2,
+                "tm": 0,
+                "cm": "M",
+                "value": 16
+              }
+            ],
+            "part": "a1",
+            "mId": 10074,
+            "size_base": null,
+            "error": 3,
+            "size_base_value": 11
+          }
+        ],
+        "errParam": null,
+        "success": true,
+        "failed": false
+      }
+      setThead(data);
+      setTbody(data);
     }
   });
 }
