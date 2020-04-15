@@ -13,7 +13,9 @@ function setThead(data) {
   initTr = ''
   var itemFir = data.item[0];
   basicSizeCode = itemFir.size_base;
-  var theadStart = `<tr><th>尺码部位</th>
+  var theadStart = `<tr>
+                  <th></th>
+                  <th>尺码部位</th>
                   <th>测量方法</th>
                   <th>基码（${itemFir.size_base}）</th>
                   `
@@ -65,6 +67,9 @@ function setTbody(data) {
     var trItem = trArr[i];
     var trItemCList = trItem.cList;
     tbodyHtml += `<tr class='size-item'>
+              <td>
+                <input type="checkbox" class="check-sync">
+              </td>
               <td>
                 <input type="text" value=${trItem.part} name="" class='w80 part'>
               </td>
@@ -163,12 +168,18 @@ function formatSubmitData() {
   }
   return submitData;
 }
+// 选中列事件
+$("#size-table").on("change", ".check-sync", function (e) {
+  var $target = $(e.target)
+  var isChecked = $target.is(':checked');
+  $target.parents('tr').attr('is-check-sync-code', isChecked)
+});
 
 // 设置全部跳码
 $('#set-all-jump-code').click(function (e) {
   var allJumpCode = $('#all-jump-code').val();
   // 设置所有的跳码框
-  var $JumpCode = $('#size-table .jump-code');
+  var $JumpCode = $('#size-table tr[is-check-sync-code=true] .jump-code');
   $JumpCode.val(parseFloat(allJumpCode));
   // 获取所有的跳码框并设置尺码
   for (var i = 0; i < $JumpCode.length; i++) {
